@@ -1,0 +1,88 @@
+% ================================-*- LaTeX -*-================================
+%   zikai.sty -- macros I use everywhere
+%
+%   Zikai Liu (zikai.liu@outlook.com)
+%   Last modified 21 July 2023
+%   Inspired and borrowed parts from Prof. Jeff Erickson (jeffe@cs.uiuc.edu)
+%   Free free to use and modify :)
+% =============================================================================
+
+\RequirePackage[T1]{fontenc}
+\RequirePackage{xcolor}
+\RequirePackage{outlines}  % nested itemize
+
+%----------------------------------------------------------------------
+%  Listings
+%----------------------------------------------------------------------
+
+\RequirePackage{listings}
+\RequirePackage{fancyvrb}  % Verbatim
+
+% -- block code
+\lstset{
+  basicstyle=\ttfamily\footnotesize, % or /small, /tidy
+  breaklines=true,
+  breakatwhitespace=true,
+  numbers=none,
+  fancyvrb=true
+  columns=fullflexible
+}
+% 
+
+% -- inline code: \code{some code in tt style with escape}
+\newcommand*\code[1]{\lstinline[basicstyle=\ttfamily]{#1}}
+
+\usepackage{backnaur}
+
+%----------------------------------------------------------------------
+%  TODO
+%----------------------------------------------------------------------
+\definecolor{TODOcolor}{cmyk}{0.05,0,0,0}
+\definecolor{TODOtxtcolor}{cmyk}{0,1,1,0}
+
+% -- TODO block
+\newenvironment{TODO}
+   {\fboxrule1.5pt\begin{center}
+     \marginpar{\LARGE\color{Red}$\bigstar\bigstar\bigstar$}
+     \begin{lrbox}{\@tempboxa}
+     \begin{minipage}{0.9\columnwidth}
+     \small\sffamily\parindent1.5em\color{TODOtxtcolor}}
+   {\end{minipage}
+    \end{lrbox}
+    \fcolorbox{TODOtxtcolor}{TODOcolor}{\usebox{\@tempboxa}}\end{center}}
+    
+% -- TODO inlined
+\newcommand{\todo}[1]{\textcolor{TODOtxtcolor}{TODO: #1}\PackageWarning{TODO:}{#1!}}
+
+%----------------------------------------------------------------------
+%  Hyperlink Table of Content and autoref
+%----------------------------------------------------------------------
+
+\RequirePackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+\def\chapterautorefname{Chapter}
+\def\sectionautorefname{Section}
+\def\subsectionautorefname{Subsection}
+\def\subsubsectionautorefname{Subsubsection}
+
+
+%----------------------------------------------------------------------
+%  Miscellaneous
+%----------------------------------------------------------------------
+
+% -- \sci{x}{y} -> {x \times 10^{y}}
+\newcommand{\sci}[2]{{#1 \times 10^{#2}}}
+
+% -- \etal
+\newcommand{\etal}{\textit{et al.}}
+
+% -- Circled numbers
+\RequirePackage{tikz}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=1pt] (char) {#1};}}
